@@ -1,0 +1,16 @@
+FROM byrnedo/alpine-curl:0.1.5 as builder
+
+ARG AGENT_VERSION=5.3.0
+ARG AGENT_RELEASE=https://download.newrelic.com/newrelic/java-agent/newrelic-agent/${AGENT_VERSION}
+
+WORKDIR /agent
+RUN set -ex \
+    && curl -LO "${AGENT_RELEASE}/newrelic.yml" \
+    && curl -LO "${AGENT_RELEASE}/newrelic-agent-${AGENT_VERSION}.jar"
+
+FROM azell/java-docker:8
+
+COPY --from=builder /agent/newrelic.yml /agent/
+COPY --from=builder /agent/*.jar /agent/newrelic-agent.jar
+
+ENV JAVA_TOOL_OPTIONS $JAVA_TOOL_OPTIONS -javaagent:/agent/newrelic-agent.jar
