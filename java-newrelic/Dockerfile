@@ -1,6 +1,6 @@
 FROM alpine:3.10.2 as builder
 
-ARG AGENT_VERSION=5.3.0
+ARG AGENT_VERSION=5.5.0
 ARG AGENT_RELEASE=https://download.newrelic.com/newrelic/java-agent/newrelic-agent/${AGENT_VERSION}
 
 WORKDIR /agent
