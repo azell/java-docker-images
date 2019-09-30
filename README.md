@@ -1,6 +1,6 @@
 # docker-images
 
-Java 8 for Docker
+Java 8/11 for Docker
 
 * Use 80% of container memory for the Java heap
 * Terminate the process on OutOfMemory exception
@@ -11,6 +11,8 @@ To build:
 ```console
 $ docker build -t azell/java-docker:8 java-docker
 $ docker build -t azell/java-newrelic:8 java-newrelic
+$ docker build -f java-docker/Dockerfile.11 -t azell/java-docker:11 .
+$ docker build -f java-newrelic/Dockerfile.11 -t azell/java-newrelic:11 .
 ```
 
 To verify Java heap usage:
