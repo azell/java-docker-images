@@ -26,7 +26,7 @@ openjdk version "1.8.0_222"
 OpenJDK Runtime Environment (build 1.8.0_222-8u222-b10-1~deb9u1-b10)
 OpenJDK 64-Bit Server VM (build 25.222-b10, mixed mode)
 $ docker run --rm -m=512m azell/java-docker:8 -XshowSettings:vm -version
-Picked up JAVA_TOOL_OPTIONS: -Djava.security.properties=/amazon-corretto-crypto-provider.security     -XX:+ExitOnOutOfMemoryError     -XX:MinRAMPercentage=80.0     -XX:MaxRAMPercentage=80.0
+Picked up JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError     -XX:MinRAMPercentage=80.0     -XX:MaxRAMPercentage=80.0
 VM settings:
     Max. Heap Size (Estimated): 396.38M
     Ergonomics Machine Class: server
@@ -43,15 +43,15 @@ To verify Amazon Corretto Crypto Provider configuration:
 
 ```console
 $ javac -source 8 -target 8 VerifyAmazonCorrettoCryptoProvider.java
-$ jar -cfe verifyACCP.jar VerifyAmazonCorrettoCryptoProvider VerifyAmazonCorrettoCryptoProvider.class
-$ docker run --rm -v "$PWD":/app azell/java-docker:8 /app/verifyACCP.jar
-Picked up JAVA_TOOL_OPTIONS: -Djava.security.properties=/amazon-corretto-crypto-provider.security     -XX:+ExitOnOutOfMemoryError     -XX:MinRAMPercentage=80.0     -XX:MaxRAMPercentage=80.0
+$ jar -cfm verifyACCP.jar manifest.txt VerifyAmazonCorrettoCryptoProvider.class
+$ docker run --rm -v "$PWD":/app azell/java-docker:8 -Djava.security.properties=/accp/amazon-corretto-crypto-provider.security /app/verifyACCP.jar
+Picked up JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError     -XX:MinRAMPercentage=80.0     -XX:MaxRAMPercentage=80.0
 provider: AmazonCorrettoCryptoProvider
-$ docker run --rm -v "$PWD":/app azell/java-newrelic:8 /app/verifyACCP.jar
-Picked up JAVA_TOOL_OPTIONS: -Djava.security.properties=/amazon-corretto-crypto-provider.security     -XX:+ExitOnOutOfMemoryError     -XX:MinRAMPercentage=80.0     -XX:MaxRAMPercentage=80.0 -javaagent:/agent/newrelic-agent.jar
-Aug 26, 2019 23:54:09 +0000 [1 1] com.newrelic INFO: New Relic Agent: Loading configuration file "/agent/./newrelic.yml"
-Aug 26, 2019 23:54:09 +0000 [1 1] com.newrelic INFO: Using default collector host: collector.newrelic.com
-Aug 26, 2019 23:54:09 +0000 [1 1] com.newrelic ERROR: license_key is empty in the config. Not starting New Relic Agent.
+$ docker run --rm -v "$PWD":/app azell/java-newrelic:8 -Djava.security.properties=/accp/amazon-corretto-crypto-provider.security /app/verifyACCP.jar
+Picked up JAVA_TOOL_OPTIONS: -XX:+ExitOnOutOfMemoryError     -XX:MinRAMPercentage=80.0     -XX:MaxRAMPercentage=80.0 -javaagent:/agent/newrelic-agent.jar
+Sep 30, 2019 02:08:28 +0000 [1 1] com.newrelic INFO: New Relic Agent: Loading configuration file "/agent/./newrelic.yml"
+Sep 30, 2019 02:08:28 +0000 [1 1] com.newrelic INFO: Using default collector host: collector.newrelic.com
+Sep 30, 2019 02:08:28 +0000 [1 1] com.newrelic ERROR: license_key is empty in the config. Not starting New Relic Agent.
 provider: AmazonCorrettoCryptoProvider
 ```
 

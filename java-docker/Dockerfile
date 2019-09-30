@@ -12,12 +12,9 @@ RUN set -ex \
 
 FROM gcr.io/distroless/java:8
 
-ARG JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+COPY --from=builder /accp/*.security /accp/
+COPY --from=builder /accp/*.jar /accp/AmazonCorrettoCryptoProvider-linux-x86_64.jar
 
-COPY --from=builder /accp/*.security /
-COPY --from=builder /accp/*.jar $JAVA_HOME/lib/ext/
-
-ENV JAVA_TOOL_OPTIONS="-Djava.security.properties=/amazon-corretto-crypto-provider.security \
-    -XX:+ExitOnOutOfMemoryError \
+ENV JAVA_TOOL_OPTIONS="-XX:+ExitOnOutOfMemoryError \
     -XX:MinRAMPercentage=80.0 \
     -XX:MaxRAMPercentage=80.0"
