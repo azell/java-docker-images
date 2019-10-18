@@ -17,4 +17,5 @@ COPY --from=builder /accp/*.jar /accp/AmazonCorrettoCryptoProvider-linux-x86_64.
 
 ENV JAVA_TOOL_OPTIONS="-XX:+ExitOnOutOfMemoryError \
     -XX:MinRAMPercentage=80.0 \
-    -XX:MaxRAMPercentage=80.0"
+    -XX:MaxRAMPercentage=80.0 \
+    -Djava.security.egd=file:/dev/./urandom"
