@@ -1,4 +1,4 @@
-FROM alpine:3.10.3 as builder
+FROM alpine:3.11.0 as builder
 
 ARG ACCP_VERSION=1.2.0
 ARG ACCP_RAW=https://raw.githubusercontent.com/corretto/amazon-corretto-crypto-provider/${ACCP_VERSION}
