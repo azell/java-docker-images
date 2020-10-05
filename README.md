@@ -11,8 +11,10 @@ To build:
 ```console
 $ docker build -t azell/java-docker:8 java-docker
 $ docker build -t azell/java-newrelic:8 java-newrelic
+$ docker build -t azell/java-datadog:8 java-datadog
 $ docker build -f java-docker/Dockerfile.11 -t azell/java-docker:11 .
 $ docker build -f java-newrelic/Dockerfile.11 -t azell/java-newrelic:11 .
+$ docker build -f java-datadog/Dockerfile.11 -t azell/java-datadog:11 .
 ```
 
 To verify Java heap usage:
@@ -64,3 +66,10 @@ New Relic notes:
 * set __NEW_RELIC_APP_NAME__
 * set __NEW_RELIC_LICENSE_KEY__
 * set __NEW_RELIC_LOG=stdout__
+
+Datadog notes:
+
+* set __DD_ENV__
+* set __DD_LOGS_INJECTION__
+* set __DD_PROFILING_ENABLED__
+* set __DD_SERVICE__
