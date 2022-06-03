@@ -1,6 +1,6 @@
-FROM alpine:3.12.0 as builder
+FROM alpine:3.16.0 as builder
 
-ARG AGENT_VERSION=0.64.0
+ARG AGENT_VERSION=0.102.0
 ARG AGENT_RELEASE=https://github.com/DataDog/dd-trace-java/releases/download/v${AGENT_VERSION}
 
 WORKDIR /agent
